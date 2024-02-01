@@ -53,3 +53,26 @@ class Recommender():
 
         return recs
 
+class Imdb_Map():
+    def __init__(self,
+                 item_ids: np.array,
+                 imdb_ids: np.array):
+        self.item_ids = item_ids 
+        self.imdb_ids = imdb_ids
+
+    def to_imdb(self,
+                  ids):
+        index = np.where(np.isin(self.item_ids, ids))[0]
+        imdb_ids = self.imdb_ids[index]
+        return imdb_ids
+    
+    def from_imdb(self,
+                  ids):
+        index = np.where(np.isin(self.imdb_ids, ids))[0]
+        imdb_ids = self.item_ids[index]
+        return imdb_ids
+
+def load_imdb_map(path: str='model_files/imdb_map.pkl'):
+    with open(path, 'rb') as file:
+        map = pickle.load(file)
+    return map
