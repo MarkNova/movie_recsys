@@ -1,20 +1,34 @@
 from main import *
 
+
+test_user = {
+    'movies': [86320],
+    'score': [5]
+}
+
 recommender = Recommender()
 recommendations = recommender.model_recommendations(
-                                                [86320], #id просмотренных фильмов
-                                                [5], #оценки фильмов
+                                                test_user['movies'], #id просмотренных фильмов
+                                                test_user['score'], #оценки фильмов
                                                 N=10 
                                                 )
 print(recommendations) #id рекоммендаций
 
 
 # вот так, если передаёшь imdb id:
+test_user = {
+    'movies': [86320],
+    'score': [5]
+}
+
 imdb_map = load_imdb_map()
 recommendations = recommender.model_recommendations(
-                                                imdb_map.from_imdb([1527186]), #imdb id просмотренных фильмов
-                                                [5], #оценки фильмов
+                                                imdb_map.from_imdb(test_user['movies']), #imdb id просмотренных фильмов
+                                                test_user['score'], #оценки фильмов
                                                 N=10 
                                                 )
-print(load_imdb_map().to_imdb(recommendations)) #imdb id
 
+print(imdb_map.to_imdb(recommendations))
+
+
+    
